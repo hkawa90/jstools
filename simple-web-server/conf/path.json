@@ -1,0 +1,12 @@
+{
+    "command":
+    {
+        "@loadconf": "loadconf();",
+        "@status": "status();"
+    },
+    "debug": 
+    {
+        "^/$": "../",
+        "/SQLiteViewer.html":"../../sqlviewer/SQLiteViewer.html"
+    }
+}
