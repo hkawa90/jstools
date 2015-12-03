@@ -1,5 +1,5 @@
 var fs = require('fs');
-var filter = /.*/;
+var filter = /.*\.tar.gz/;
 var root = '.';
 var walk = function (dir) {
     var results = []
