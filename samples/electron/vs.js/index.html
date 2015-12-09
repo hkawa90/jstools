@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>Timeline</title>
+
+    <style>
+        body,
+        html {
+            font-family: arial, sans-serif;
+            font-size: 11pt;
+        }
+
+        textarea {
+            width: 800px;
+            height: 200px;
+        }
+
+        .buttons {
+            margin: 20px 0;
+        }
+
+        .buttons input {
+            padding: 10px;
+        }
+    </style>
+
+    <script src="./lib/vis.js"></script>
+    <link href="./lib/vis.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+
+    <h1>Timeline</h1>
+
+    <div id="visualization"></div>
+
+    <script>
+        // Create an empty DataSet.
+        // This DataSet is used for two way data binding with the Timeline.
+        var items = new vis.DataSet();
+        // Load modules
+        var readJSON = require('./lib/readJSON.js');
+
+        // create a timeline
+        var container = document.getElementById('visualization');
+        var options = {
+            editable: false
+        };
+        var timeline = new vis.Timeline(container, items, options);
+        var data = readJSON('./data/test.json');
+        // Note: when retrieving updated data from a server instead of a complete
+        // new set of data, one can simply update the existing data like:
+        //
+        //   items.update(data);
+        //
+        // Existing items will then be updated, and new items will be added.
+        items.clear();
+        items.add(data);
+
+        // adjust the timeline window such that we see the loaded data
+        timeline.fit();
+    </script>
+</body>
+
+</html>
