@@ -1,0 +1,299 @@
+<!--http://codepen.io/tholex/pen/rgBcn-->
+<link rel="stylesheet" type="text/css" href="css-tooltip.css">
+<div class="container">
+
+    <div class="keyboard">
+        <div class="keyboard-row thin">
+            <div class="key lowercase">Esc</div>
+            <div class="key function lo-bright">f1</div>
+            <div class="key function hi-bright">f2</div>
+            <div class="key function expose">f3</div>
+            <div class="key function tilez">f4</div>
+            <div class="key function">f5</div>
+            <div class="key function">f6</div>
+            <div class="key function rewind">f7</div>
+            <div class="key function play-pause">f8</div>
+            <div class="key function ffwd">f9</div>
+            <div class="key function mute">f10</div>
+            <div class="key function lo-vol">f11</div>
+            <div class="key function hi-vol">f12</div>
+            <div class="key eject"></div>
+        </div>
+        <div class="keyboard-row">
+            <div class="key"><span>~<br/>`</span></div>
+            <div class="key"><span>!<br/>1</span></div>
+            <div class="key"><span>@<br/>2</span></div>
+            <div class="key"><span>#<br/>3</span></div>
+            <div class="key"><span>$<br/>4</span></div>
+            <div class="key"><span>%<br/>5</span></div>
+            <div class="key"><span>^<br/>6</span></div>
+            <div class="key"><span>&amp;<br/>7</span></div>
+            <div class="key"><span>*<br/>8</span></div>
+            <div class="key"><span>(<br/>9</span></div>
+            <div class="key"><span>)<br/>0</span></div>
+            <div class="key"><span>_<br/>-</span></div>
+            <div class="key"><span>+<br/>=</span></div>
+            <div class="key extra-size lowercase lower-right">delete</div>
+        </div>
+        <div class="keyboard-row">
+            <div class="key extra-size lowercase lower-left">tab</div>
+            <div class="key" id="KEY_Q">Q</div>
+            <div class="key" id="KEY_W">W</div>
+            <div class="key" id="KEY_E">E</div>
+            <div class="key" id="KEY_R">R</div>
+            <div class="key" id="KEY_T">T</div>
+            <div class="key" id="KEY_Y">Y</div>
+            <div class="key" id="KEY_U">U</div>
+            <div class="key" id="KEY_I">I</div>
+            <div class="key" id="KEY_O">O</div>
+            <div class="key" id="KEY_P">P</div>
+            <div class="key"><span>{<br/>[</span></div>
+            <div class="key"><span>}<br/>]</span></div>
+            <div class="key"><span>|<br/>\</span></div>
+        </div>
+        <div class="keyboard-row">
+            <div class="key lowercase lower-left extra-size-two">caps lock<span class="absolute-left caps-dot">&bull;</span></div>
+            <div class="key" id="KEY_A">A</div>
+            <div class="key" id="KEY_S">S</div>
+            <div class="key" id="KEY_D">D</div>
+            <div class="key" id="KEY_F">F</div>
+            <div class="key" id="KEY_G">G</div>
+            <div class="key" id="KEY_H">H</div>
+            <div class="key" id="KEY_J">J</div>
+            <div class="key" id="KEY_K">K</div>
+            <div class="key" id="KEY_L">L</div>
+            <div class="key" id="KEY_COLON"><span>:<br/>;</span></div>
+            <div class="key" id="KEY_DOUBLE_QUOTE"><span>"<br/>'</span></div>
+            <div class="key extra-size-two lowercase lower-right">return<span class="absolute-right">enter</span></div>
+        </div>
+        <div class="keyboard-row">
+            <div class="key double-size lowercase lower-left">shift</div>
+            <div class="key" id="KEY_Z">Z</div>
+            <div class="key" id="KEY_X">X</div>
+            <div class="key" id="KEY_C">C</div>
+            <div class="key" id="KEY_V">V</div>
+            <div class="key" id="KEY_B">B</div>
+            <div class="key" id="KEY_N">N</div>
+            <div class="key" id="KEY_M">M</div>
+            <div class="key" id="KEY_COMMNA"><span>&lt;<br/>,</span></div>
+            <div class="key" id="KEY_PRIOD"><span>&gt;<br/>.</span></div>
+            <div class="key" id="KEY_QUESTION"><span>?<br/>/</span></div>
+            <div class="key double-size lowercase lower-right" id="KEY_SHITF">shift</div>
+        </div>
+        <div class="keyboard-row bottom-row">
+            <div class="key lower-left lowercase">fn</div>
+            <div class="key lower-left lowercase">control</div>
+            <div class="key lower-left lowercase">option<span class="absolute-left">alt</span></div>
+            <div class="key lower-center lowercase extra-size-two">command<span class="absolute-right icon">&#8984;</span></div>
+            <div class="key space-bar"></div>
+            <div class="key lower-center lowercase extra-size-two">command<span class="absolute-left icon">&#8984;</span></div>
+            <div class="key lower-right lowercase">option<span class="absolute-right">alt</span></div>
+            <div class="arrows">
+                <div class="key">&#9668;</div>
+                <div class="up-down">
+                    <div class="key">&#9650;</div>
+                    <div class="key">&#9660;</div>
+                </div>
+                <div class="key">&#9658;</div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<!--http://phpjavascriptroom.com/?t=ajax&p=balloonjs_css-->
+<!--https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode-->
+<script>
+    var keymap = {
+        '\U+0041': {
+            'ascii': 'A',
+            'ctrl': 'Select All',
+            id: 'KEY_A'
+        },
+        '\U+0042': {
+            'ascii': 'B',
+            'ctrl': 'Select All',
+            id: 'KEY_B'
+        },
+        '\U+0043': {
+            'ascii': 'C',
+            'ctrl': 'Select All',
+            id: 'KEY_C'
+        },
+        '\U+0044': {
+            'ascii': 'D',
+            'ctrl': 'Select All',
+            id: 'KEY_D'
+        },
+        '\U+0045': {
+            'ascii': 'E',
+            'ctrl': 'Select All',
+            id: 'KEY_E'
+        },
+        '\U+0046': {
+            'ascii': 'F',
+            'ctrl': 'Select All',
+            id: 'KEY_F'
+        },
+        '\U+0047': {
+            'ascii': 'G',
+            'ctrl': 'Select All',
+            id: 'KEY_G'
+        },
+        '\U+0048': {
+            'ascii': 'H',
+            'ctrl': 'Select All',
+            id: 'KEY_H'
+        },
+        '\U+0049': {
+            'ascii': 'I',
+            'ctrl': 'Select All',
+            id: 'KEY_I'
+        },
+        '\U+004A': {
+            'ascii': 'J',
+            'ctrl': 'Select All',
+            id: 'KEY_J'
+        },
+        '\U+004B': {
+            'ascii': 'K',
+            'ctrl': 'Select All',
+            id: 'KEY_K'
+        },
+        '\U+004C': {
+            'ascii': 'L',
+            'ctrl': 'Select All',
+            id: 'KEY_L'
+        },
+        '\U+004D': {
+            'ascii': 'M',
+            'ctrl': 'Select All',
+            id: 'KEY_M'
+        },
+        '\U+004E': {
+            'ascii': 'N',
+            'ctrl': 'Select All',
+            id: 'KEY_N'
+        },
+        '\U+004F': {
+            'ascii': 'O',
+            'ctrl': 'Select All',
+            id: 'KEY_O'
+        },
+        '\U+0050': {
+            'ascii': 'P',
+            'ctrl': 'Select All',
+            id: 'KEY_P'
+        },
+        '\U+0051': {
+            'ascii': 'Q',
+            'ctrl': 'Select All',
+            id: 'KEY_Q'
+        },
+        '\U+0052': {
+            'ascii': 'R',
+            'ctrl': 'Select All',
+            id: 'KEY_R'
+        },
+        '\U+0053': {
+            'ascii': 'S',
+            'ctrl': 'Select All',
+            id: 'KEY_S'
+        },
+        '\U+0054': {
+            'ascii': 'T',
+            'ctrl': 'Seect All',
+            id: 'KEY_T'
+        },
+        '\U+0055': {
+            'ascii': 'U',
+            'ctrl': 'Select All',
+            id: 'KEY_U'
+        },
+        '\U+0056': {
+            'ascii': 'V',
+            'ctrl': 'Select All',
+            id: 'KEY_V'
+        },
+        '\U+0057': {
+            'ascii': 'W',
+            'ctrl': 'Select All',
+            id: 'KEY_W'
+        },
+        '\U+0058': {
+            'ascii': 'X',
+            'ctrl': 'Select All',
+            id: 'KEY_X'
+        },
+        '\U+0059': {
+            'ascii': 'Y',
+            'ctrl': 'Select All',
+            id: 'KEY_Y'
+        },
+        '\U+0060': {
+            'ascii': 'Z',
+            'ctrl': 'Select All',
+            id: 'KEY_Z'
+        }
+    };
+
+
+    window.addEventListener("keydown", function (event) {
+        if (event.defaultPrevented) {
+            return; // Should do nothing if the default action has been cancelled
+        }
+
+        var handled = false;
+        if (event.key !== undefined) {
+            // Handle the event with KeyboardEvent.key and set handled true.
+            // unspported
+        } else if (event.keyIdentifier !== undefined) {
+            // Handle the event with KeyboardEvent.keyIdentifier and set handled true.
+            var key = keymap[event.keyIdentifier];
+            if (key !== undefined) {
+                var keyElement = document.getElementById(key.id);
+                keyElement.className = 'key pressed';
+                handled = true;
+            }
+            console.log(event.keyIdentifier);
+            console.log(key);
+            console.log(handled);
+        } else if (event.keyCode !== undefined) {
+            // Handle the event with KeyboardEvent.keyCode and set handled true.
+            // unspported
+        }
+
+        if (handled) {
+            // Suppress "double action" if event handled
+            event.preventDefault();
+        }
+    }, true);
+
+    window.addEventListener("keyup", function (event) {
+        if (event.defaultPrevented) {
+            return; // Should do nothing if the default action has been cancelled
+        }
+
+        var handled = false;
+        if (event.key !== undefined) {
+            // Handle the event with KeyboardEvent.key and set handled true.
+            // unspported
+        } else if (event.keyIdentifier !== undefined) {
+            // Handle the event with KeyboardEvent.keyIdentifier and set handled true.
+            var key = keymap[event.keyIdentifier];
+            if (key !== undefined) {
+                var keyElement = document.getElementById(key.id);
+                keyElement.className = 'key';
+                handled = true;
+            }
+        } else if (event.keyCode !== undefined) {
+            // Handle the event with KeyboardEvent.keyCode and set handled true.
+            // unspported
+        }
+
+        if (handled) {
+            // Suppress "double action" if event handled
+            event.preventDefault();
+        }
+    }, true);
+</script>
