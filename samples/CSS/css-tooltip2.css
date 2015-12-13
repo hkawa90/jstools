@@ -1,0 +1,31 @@
+/*http://webnonotes.com/css/tooltip/*/
+/* 表示文字の装飾 */
+div.tooltip2{
+    color: #555;
+    display: inline-block;                        /* インライン要素化 */
+    border-bottom:dashed 1px #555;    /* 下線を引く */
+}
+
+/* ツールチップ部分を隠す */
+div.tooltip2 span {
+    display: none;
+}
+
+/* マウスオーバー */
+div.tooltip2:hover {
+    position: relative;
+    color: #333;
+}
+
+/* マウスオーバー時にツールチップを表示 */
+div.tooltip2:hover span {
+    display: block;                  /* ボックス要素にする */
+    position: absolute;            /* relativeからの絶対位置 */
+    top: 20px;
+    background-color: #444;
+    padding: 5px;
+    width: 300px;
+    color: #fff;
+    font-size: 90%;
+    z-index: 100;
+}

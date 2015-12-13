@@ -1,5 +1,6 @@
 <!--http://codepen.io/tholex/pen/rgBcn-->
-<link rel="stylesheet" type="text/css" href="css-tooltip.css">
+<link rel="stylesheet" type="text/css" href="brackets_cheat_sheet.css">
+<h1>Brackets Shortcut Key Map</h1>
 <div class="container">
 
     <div class="keyboard">
@@ -100,6 +101,11 @@
     </div>
 </div>
 </div>
+<dl class="box08">
+<dt>Description</dt><dd id="description"></dd>
+</dl>
+
+
 
 <!--http://phpjavascriptroom.com/?t=ajax&p=balloonjs_css-->
 <!--https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode-->
@@ -108,131 +114,160 @@
         '\U+0041': {
             'ascii': 'A',
             'ctrl': 'Select All',
+            'description' : 'Select All',
             id: 'KEY_A'
         },
         '\U+0042': {
             'ascii': 'B',
-            'ctrl': 'Select All',
+            'description' : '',
             id: 'KEY_B'
         },
         '\U+0043': {
             'ascii': 'C',
-            'ctrl': 'Select All',
+            'ctrl': 'Copy',
+            'ctrl-shift': 'Live Highlight',
+            'description' : 'Live Highlight',
             id: 'KEY_C'
         },
         '\U+0044': {
             'ascii': 'D',
-            'ctrl': 'Select All',
+            'ctrl': 'Duplicate',
+            'ctrl-shift': 'Delete Line(s)',
+            'description' : 'Delete Line(s)',
             id: 'KEY_D'
         },
         '\U+0045': {
             'ascii': 'E',
-            'ctrl': 'Select All',
+            'ctrl': 'Quick Edit',
+            'description' : 'Quick Edit',
             id: 'KEY_E'
         },
         '\U+0046': {
             'ascii': 'F',
-            'ctrl': 'Select All',
+            'ctrl': 'Find',
+            'ctrl-shift': 'Find in files',
+            'description' : 'Find in files',
             id: 'KEY_F'
         },
         '\U+0047': {
             'ascii': 'G',
-            'ctrl': 'Select All',
+            'ctrl': 'Go to Line',
+            'description' : 'Go to Line',
             id: 'KEY_G'
         },
         '\U+0048': {
             'ascii': 'H',
-            'ctrl': 'Select All',
+            'ctrl': 'Replace',
+            'ctrl-shift': 'Hide Sidebar',
+            'description' : 'Ctrl: Replace, Ctrl-Shift: Hide Sidebar',
             id: 'KEY_H'
         },
         '\U+0049': {
             'ascii': 'I',
-            'ctrl': 'Select All',
+            'description' : '',
             id: 'KEY_I'
         },
         '\U+004A': {
             'ascii': 'J',
-            'ctrl': 'Select All',
+            'ctrl': 'Jump to Definition',
+            'description' : 'Jump to Definition',
             id: 'KEY_J'
         },
         '\U+004B': {
             'ascii': 'K',
-            'ctrl': 'Select All',
+            'ctrl': 'Quick Docs',
+            'description' : 'Quick Docs',
             id: 'KEY_K'
         },
         '\U+004C': {
             'ascii': 'L',
-            'ctrl': 'Select All',
+            'ctrl': 'To Lower Case',
+            'description' : 'To Lower Case',
             id: 'KEY_L'
         },
         '\U+004D': {
             'ascii': 'M',
-            'ctrl': 'Select All',
+            'description' : '',
             id: 'KEY_M'
         },
         '\U+004E': {
             'ascii': 'N',
-            'ctrl': 'Select All',
+            'ctrl': 'New File',
+            'ctrl-alt': 'New Rule',
+            'description' : 'Ctrl: New File, Ctrl-Alt: New Rule',
             id: 'KEY_N'
         },
         '\U+004F': {
             'ascii': 'O',
-            'ctrl': 'Select All',
+            'ctrl': 'Open file',
+            'ctrl-shift': 'Quick Open',
+            'description' : 'Quick Open',
             id: 'KEY_O'
         },
         '\U+0050': {
             'ascii': 'P',
-            'ctrl': 'Select All',
+            'ctrl-alt': 'Live Preview',
+            'description' : 'Live Preview',
             id: 'KEY_P'
         },
         '\U+0051': {
             'ascii': 'Q',
-            'ctrl': 'Select All',
+            'ctrl': 'Quit',
+            'description' : 'Quit',
             id: 'KEY_Q'
         },
         '\U+0052': {
             'ascii': 'R',
-            'ctrl': 'Select All',
+            'description' : '',
             id: 'KEY_R'
         },
         '\U+0053': {
             'ascii': 'S',
-            'ctrl': 'Select All',
+            'ctrl': 'Save',
+            'ctrl-shift': 'Save as ...',
+            'ctrl-alt': 'Save All',
+            'description' : 'Ctrl: Save as..., Ctrl-Alt: Save All',
             id: 'KEY_S'
         },
         '\U+0054': {
             'ascii': 'T',
-            'ctrl': 'Seect All',
+            'ctrl': 'Go to definition',
+            'description' : 'Go to definition',
             id: 'KEY_T'
         },
         '\U+0055': {
             'ascii': 'U',
-            'ctrl': 'Select All',
+            'description' : '',
             id: 'KEY_U'
         },
         '\U+0056': {
             'ascii': 'V',
-            'ctrl': 'Select All',
+            'ctrl': 'Paste',
+            'description' : 'Paste',
             id: 'KEY_V'
         },
         '\U+0057': {
             'ascii': 'W',
-            'ctrl': 'Select All',
+            'ctrl': 'Close',
+            'ctrl-shift': 'Close all',
+            'description' : 'Close all',
             id: 'KEY_W'
         },
         '\U+0058': {
             'ascii': 'X',
-            'ctrl': 'Select All',
+            'ctrl': 'Cut',
+            'description' : 'Cut',
             id: 'KEY_X'
         },
         '\U+0059': {
             'ascii': 'Y',
-            'ctrl': 'Select All',
+            'ctrl': 'Redo',
+            'description' : 'Redo',
             id: 'KEY_Y'
         },
         '\U+0060': {
             'ascii': 'Z',
-            'ctrl': 'Select All',
+            'description' : '',
             id: 'KEY_Z'
         }
     };
@@ -252,6 +287,8 @@
             var key = keymap[event.keyIdentifier];
             if (key !== undefined) {
                 var keyElement = document.getElementById(key.id);
+                var disElement = document.getElementById('description');
+                disElement.innerHTML = key.description;
                 keyElement.className = 'key pressed';
                 handled = true;
             }
