@@ -1,3 +1,5 @@
 /samples/node_modules/
 /samples/electron/vs.js/node_modules/
 /samples/CSS/brackets_cheat_sheet.css
+/samples/StructureReader/node_modules/
+/mermaid

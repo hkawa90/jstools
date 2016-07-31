@@ -1,0 +1,20 @@
+{
+  "name": "StructureReader",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/.bin/mocha --reporter spec"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bit-buffer": "0.0.3",
+    "chai": "^3.4.1",
+    "fs": "0.0.2",
+    "gulp": "^3.9.0",
+    "mocha": "^2.3.4",
+    "util": "^0.10.3"
+  }
+}

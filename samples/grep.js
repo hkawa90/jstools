@@ -1,5 +1,6 @@
 var files = require('./file_listing');
 var readline = require('readline'),
+    colors = require('colors'),
     fs = require('fs'),
     async = require('async');
 var results = [];
@@ -34,6 +35,9 @@ files('.', /.*\.js/, function (err, fileLists) {
                     callback();
                 });
             }, function (err) {
+                for (var i = 0; i < results.length; i++) {
+                    console.log(results[i].fileName + ':' + results[i].lineNumber + ':' + results[i][1] + '=' + results[i][0].red);
+                }
                 console.dir(results);
             });
 });
