@@ -5,80 +5,103 @@
 //        document.getElementById('log').innerHTML += arg.toString() + '\n';
 //    }
 //};
+var _SimpleProfiler = {
+    nativeCodeEx: /\[native code\]/,
+    indentCount: -4,
+    tracing: [],
+    diagram: [],
 
-function getCaller(callstack) {
-    for (var i = 1; i < callstack.length; i++) {
-        if (callstack[i] != "")
-            return callstack[i];
-    }
-    return "";
-}
-
-function getCallStack() {
-    var caller = arguments.callee,
-        ret = [];
-    while ((caller = caller.caller)) {
-        ret.push(caller.name);
-    }
-    return ret;
-};
-
-SimpleProfiler = function(target, recursive) {
-    this.traceList = [];
-    this.profileList = [];
-    this.targetObj = target;
-    this.recursive = recursive || false;
-    this.handler = {
-        _this: this,
-        apply: function(target, thisArg, argumentsList) {
-            console.log(this);
-            console.log("apply ---");
+    traceMethod: function(func, methodName) {
+        var traceOn = function() {
             var startTime = new Date();
-            var r = target.apply(thisArg, argumentsList);
-            var endTime = new Date();
-            this._this.profileList.push({
-                "start": startTime,
-                "end": endTime,
-                "method": target
+            var result = func.apply(this, arguments);
+            _SimpleProfiler.callgraph.add(_SimpleProfiler.getCaller(_SimpleProfiler.getCallStack()), methodName);
+            _SimpleProfiler.diagram.push({
+                'start': startTime,
+                'end': new Date(),
+                'content': methodName
             });
-            console.log(this._this.profileList);
-            console.log("apply ---");
-            return r;
-        },
-        set: function(target, prop, value, receiver) {
-            target[prop] = value;
-            return true;
-        },
-        get: function(target, name) {
-
-            //console.dir(getCallStack());
-            //            if (typeof target[name] === 'function') {
-            //                return function() {
-            //                    var startTime = new Date();
-            //                    var rtnVal = target[name].call(this);
-            //                    var endTime = new Date();
-            //                    this._this.profileList.push({
-            //                        "start": startTime,
-            //                        "end": endTime,
-            //                        "method": target
-            //                    });
-            //                    return rtnVal == target ? this : rtnVal;
-            //                }
-            //            } else {
-            return target[name];
-            //            }
+            return result;
+        };
+        traceOn.traceOff = func;
+        for (var prop in func) {
+            traceOn[prop] = func[prop];
         }
-    };
-    this.proxy = new Proxy(this.targetObj, this.handler);
-};
+        traceOn.originalFuncName = methodName;
+        return traceOn;
+    },
 
-SimpleProfiler.prototype.run = function(method, thisArg, argumentsList) {
-    //    return this.proxy[method].apply(this.targetObj, argumentsList);
-    return this.proxy.apply(this.targetObj, argumentsList);
-};
+    trace: function(root, recurse) {
+        if ((root == window) || !((typeof root == 'object') || (typeof root == 'function'))) {
+            return;
+        }
+        for (var key in root) {
+            if ((root.hasOwnProperty(key)) && (root[key] != root)) {
+                var thisObj = root[key];
+                if (typeof thisObj == 'function') {
+                    if ((this != root) && !thisObj.traceOff && !this.nativeCodeEx.test(thisObj)) {
+                        root[key] = this.traceMethod(root[key], key);
+                        this.tracing.push({
+                            obj: root,
+                            methodName: key
+                        });
+                    }
+                }
+                if (recurse === true) {
+                    this.traceAll(thisObj, true);
+                }
+            }
+        }
+    },
 
-SimpleProfiler.prototype.getProfileList = function() {
-    return this.profileList;
+    untraceAll: function() {
+        for (var i = 0; i < this.tracing.length; ++i) {
+            var thisTracing = this.tracing[i];
+            thisTracing.obj[thisTracing.methodName] =
+                thisTracing.obj[thisTracing.methodName].traceOff;
+        }
+        _SimpleProfiler.tracing = [];
+        _SimpleProfiler.diagram = [];
+    },
+
+    callgraph: {
+        enumList: [],
+        add: function(caller, method) {
+            var fnd = false;
+            var content = {};
+            for (var i = 0; i < _SimpleProfiler.callgraph.enumList.length; i++) {
+                if ((_SimpleProfiler.callgraph.enumList[i].caller == caller) && (_SimpleProfiler.callgraph.enumList[i].method == method)) {
+                    _SimpleProfiler.callgraph.enumList[i].count++;
+                    fnd = true;
+                }
+            }
+            if (!fnd) {
+                content.caller = caller;
+                content.method = method;
+                content.count = 1;
+                _SimpleProfiler.callgraph.enumList.push(content);
+            }
+        },
+        get: function() {
+            return _SimpleProfiler.callgraph.enumList;
+        }
+    },
+    getCaller: function(callstack) {
+        for (var i = 1; i < callstack.length; i++) {
+            if (callstack[i] != "")
+                return callstack[i];
+        }
+        return "";
+    },
+
+    getCallStack: function() {
+        var caller = arguments.callee,
+            ret = [];
+        while ((caller = caller.caller)) {
+            ret.push(caller.name);
+        }
+        return ret;
+    }
 };
 
 SimpleClass = function(arg) {
@@ -90,7 +113,7 @@ SimpleClass.prototype.myfunc_a = function(arg) {
 };
 
 SimpleClass.prototype.myfunc_b = function(arg) {
-    return myfunc_a(arg);
+    return this.myfunc_a(arg);
 };
 
 function simple_func_a(arg) {
@@ -108,16 +131,13 @@ function simple_func_b(arg) {
 
 window.onload = function() {
     // simple function test
-    var sf_proxy = new SimpleProfiler(simple_func_b);
-    sf_proxy.run("sf_proxy");
-    console.log("simpleClass_proxy.getProfileList");
-    console.log(simpleClass_proxy.getProfileList());
-    console.log("--simpleClass_proxy.getProfileList");
+    var sf_simple_func_b = _SimpleProfiler.traceMethod(simple_func_b, false);
+    console.log("sf_simple_func_b run");
+    sf_simple_func_b();
+    console.log("sf_simple_func_b getProfileList");
+    console.log("sf_simple_func_b getProfileList");
+    console.log(_SimpleProfiler.callgraph.get());
+    console.log(_SimpleProfiler.diagram);
+    console.log("--sf_simple_func_b getProfileList");
 
-    // simple class test
-    var simpleClass_proxy = new SimpleClass("simpleClass_proxy");
-    simpleClass_proxy.run("simpleClass_proxy_instance");
-    console.log("simpleClass_proxy.getProfileList");
-    console.log(simpleClass_proxy.getProfileList());
-    console.log("--simpleClass_proxy.getProfileList");
 }

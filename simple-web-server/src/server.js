@@ -9,7 +9,7 @@ var header = {
     "Pragma": "no-cache",
     "Cache-Control": "no-cache"
 };
-(function (root, port, conf) {
+(function(root, port, conf) {
 
     //
     // status code message map
@@ -40,23 +40,23 @@ var header = {
     // send requested file
     //
     function sendFile(req, res, filePath) {
-
         var file = fs.createReadStream(filePath);
-        file.on("readable", function () {
-            header["Content-Type"] = mime[path.extname(filePath)] || "text/plain";
-            res.writeHead(200, header);
-        });
+        header["Content-Type"] = mime[path.extname(filePath)] || "text/plain";
+        res.writeHead(200, header);
 
-        file.on("data", function (data) {
+        file.on("data", function(data) {
+            console.log("data:" + data);
             res.write(data, 'binary');
         });
 
-        file.on("close", function () {
+        file.on("close", function() {
+            console.log("close:");
             res.end();
             console.log("<- " + message[String(200)] + ": " + req.method + " " + req.url);
         });
 
-        file.on("error", function (err) {
+        file.on("error", function(err) {
+            console.log("erroro:");
             sendError(req, res, 500);
         });
     }
@@ -144,7 +144,7 @@ var header = {
             }
         }
         console.log("handleRequest out");
-        fs.exists(filePath, function (exists) {
+        fs.exists(filePath, function(exists) {
             if (!exists) {
                 return sendError(req, res, 404);
             }
@@ -152,7 +152,7 @@ var header = {
                 console.log("handleRequest");
                 return handleRequest(req, res, path.join(filePath, "index.html"));
             } else {
-                console.log("sendFile");
+                console.log("sendFile " + filePath);
                 return sendFile(req, res, filePath);
             }
         });
@@ -175,7 +175,7 @@ var header = {
     //
     // create and start the server
     //
-    http.createServer(function (req, res) {
+    http.createServer(function(req, res) {
         console.log("createServer start");
         var pathName = url.parse(req.url).pathname;
         console.log("-> " + req.method + " " + pathName);
